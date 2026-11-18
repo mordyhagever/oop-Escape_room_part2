@@ -18,7 +18,7 @@ class Booking:
 
     def cancel(self, fee):
         self.cancellation_fee = fee
-        self.status = "cancelled"
+        self.status = "Cancelled"
 
 
     def update_details(self, booking_date, start_time, players, total_price):

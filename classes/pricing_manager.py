@@ -33,7 +33,7 @@ class PriceManager:
         if booked - now < datetime.timedelta(hours=24):
             if booked - now < datetime.timedelta(hours=6):
                 if booked - now <= datetime.timedelta(minutes=1):
-                    return None
+                    return 0
                 cancel_price = booking.total_price * 0.5
                 return cancel_price
             cancel_price = booking.total_price * 0.25

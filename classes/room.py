@@ -14,7 +14,7 @@ class Room:
     def activate(self):
         self.is_active = "Active"
     def deactivate(self):
-        self.is_active = "cancelled"
+        self.is_active = "Cancelled"
     def is_valid_player(self, players):
         if players > self.max_players:
             return False

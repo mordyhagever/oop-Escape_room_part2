@@ -59,7 +59,7 @@ class BookingManager:
         order["start_time"] = datetime.datetime.strftime(date_and_time, "%H:%M")
         order["players"] = players
         order["total_price"] = calc_price.calculate_price(room, players, date_and_time.date())
-        order["status"] = "active"
+        order["status"] = "Active"
         order["cancellation_fee"] = 0.0
         order1 = order
         order = Booking.from_dict(order)
@@ -70,6 +70,7 @@ class BookingManager:
 
     def show_all_bookings(self):
         for book in self.booking:
+            print()
             print(book.to_dict())
 
     def get_booking_by_id(self, booking_id):
@@ -146,7 +147,7 @@ class BookingManager:
         fee= None
         for order in self.booking:
             if order.booking_id == booking_id:
-                order.status = "cancelled"
+                order.status = "Cancelled"
                 fee = PriceManager().calculate_cancellation_fee(order, current_datetime)
                 order.cancellation_fee = fee
         DataManager().save_bookings(self.booking)

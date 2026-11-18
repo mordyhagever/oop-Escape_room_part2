@@ -18,7 +18,7 @@ class ReportsManager:
     def count_cancelled_bookings(self):
         cancelled_orders = 0
         for order in self.bookings:
-            if order.status == "cancelled":
+            if order.status == "Cancelled":
                 cancelled_orders += 1
         return f"cancelled orders: {cancelled_orders}"
 
