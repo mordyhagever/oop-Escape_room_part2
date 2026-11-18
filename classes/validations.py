@@ -119,7 +119,7 @@ class Validations:
         if not self.is_int(number):
             return False
         number = int(number)
-        if number < 1 or number > 7:
+        if number < 1 or number > 8:
             return False
         return True
 

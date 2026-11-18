@@ -62,6 +62,7 @@ class EscapeRoomSystem:
     5. Search booking by date
     6. Change booking details
     7. Cancel order
+    8. return to main menu
                 """)
                 order_choose = input()
                 while not valid.reports_choose_checker(order_choose):
@@ -116,7 +117,6 @@ class EscapeRoomSystem:
                     print(self.booking_manager.cancel_booking(booking_id, datetime.datetime.now()))
 
 
-
             elif choose == 2:
                 print("""
     What report do you want?
@@ -127,6 +127,7 @@ class EscapeRoomSystem:
     5. Most popular room
     6. Orders number in each room
     7. Active percentage in one room
+    8. Return
                         """)
                 report_choose = input()
                 while not valid.reports_choose_checker(report_choose):
