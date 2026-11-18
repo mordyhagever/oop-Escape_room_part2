@@ -35,7 +35,7 @@ class Room:
 
     @classmethod
     def from_dict(cls, data):
-        return cls(data["room_id"], data["name"], data["difficulty"], data["duration"], data["min_player"], data["max_player"], data["price_per_player"], data["is_active"])
+        return cls(data["room_id"], data["name"], data["difficulty"], data["duration"], data["min_players"], data["max_players"], data["price_per_player"], data["is_active"])
 
 
 
