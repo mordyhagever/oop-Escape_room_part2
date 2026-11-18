@@ -1,6 +1,6 @@
 from bisect import insort_left
 
-from booking import Booking
+from classes.booking import Booking
 from classes.room import Room
 from classes.validations import *
 from classes.pricing_manager import PriceManager
@@ -23,7 +23,7 @@ class BookingManager:
         next_digit = last_digits + 1
         if next_digit < 10:
             return "B00" + str(next_digit)
-        elif 10 < next_digit < 100:
+        elif 9 < next_digit < 100:
             return "B0" + str(next_digit)
         else:
             return "B" + str(next_digit)
@@ -48,6 +48,7 @@ class BookingManager:
             return "Time isn't valid!"
         if not valid.check_players(players, room_id, self.rooms):
             return "Invalid number of players!"
+        players = int(players)
         order = {}
         room = valid.find_room_by_id(room_id)
         calc_price = PriceManager()
@@ -67,27 +68,36 @@ class BookingManager:
         return "Created successfully", order1
 
 
-    def get_booking(self, booking_id):
+    def show_all_bookings(self):
+        for book in self.booking:
+            print(book.to_dict())
+
+    def get_booking_by_id(self, booking_id):
         for book in self.booking:
             if book.booking_id == booking_id:
-                return book
-        return None
+                return book.to_dict()
+        return "Couldn't find booking"
 
     def get_customer_booking(self, customer_name):
         all_customer_orders = []
         for order in self.booking:
             if order.customer_name == customer_name:
+                order = order.to_dict()
                 all_customer_orders.append(order)
         if all_customer_orders:
             return all_customer_orders
-        return None
+        return "Couldn't find any orders of this client"
 
     def get_booking_by_date(self, booking_date):
+        try:
+            booking_date = datetime.date.strptime(booking_date, "%Y-%m-%d")
+        except ValueError:
+            return "Something went wrong with the date converting!"
         all_date_orders = []
         for order in self.booking:
             date = datetime.date.strptime(order.booking_date, "%Y-%m-%d")
             if date == booking_date:
-                all_date_orders.append(order)
+                all_date_orders.append(order.to_dict())
         if all_date_orders:
             return all_date_orders
         return None
@@ -130,6 +140,9 @@ class BookingManager:
         return "Updated successfully", order1
 
     def cancel_booking(self, booking_id, current_datetime):
+        valid = Validations()
+        if not valid.is_booking_id_exist(booking_id):
+            return "Error, booking id doesn't exist!!!"
         fee= None
         for order in self.booking:
             if order.booking_id == booking_id:
@@ -145,25 +158,25 @@ class BookingManager:
 
 
 
+#
+# pricing = PriceManager()
+# books_list = DataManager().load_bookings()
+# rooms_list = DataManager().load_rooms()
+# object_book_list = []
+# for order in books_list:
+#     order = Booking.from_dict(order)
+#     object_book_list.append(order)
+# object_room_list = []
+# for room in rooms_list:
+#     room = Room.from_dict(room)
+#     object_room_list.append(room)
+# books_list = object_book_list
+# rooms_list = object_room_list
 
-pricing = PriceManager()
-books_list = DataManager().load_bookings()
-rooms_list = DataManager().load_rooms()
-object_book_list = []
-for order in books_list:
-    order = Booking.from_dict(order)
-    object_book_list.append(order)
-object_room_list = []
-for room in rooms_list:
-    room = Room.from_dict(room)
-    object_room_list.append(room)
-books_list = object_book_list
-rooms_list = object_room_list
-
-me = BookingManager(rooms_list, books_list, pricing)
+# me = BookingManager(rooms_list, books_list, pricing)
 # print(me.update_booking("B009", "2026-11-18", "17:11", 3))
 # print(me.create_booking("Mordy", "R001", "2027-02-01", "17:00", 5))
-print(me.cancel_booking("B009", datetime.datetime.now()))
+# print(me.cancel_booking("B009", datetime.datetime.now()))
 #
 #
 

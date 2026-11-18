@@ -97,5 +97,16 @@
     "total_price": 1960.0,
     "status": "cancelled",
     "cancellation_fee": 490.0
+  },
+  {
+    "booking_id": "B010",
+    "customer_name": "Mow",
+    "room_id": "R002",
+    "booking_date": "2026-12-06",
+    "start_time": "15:40",
+    "players": "5",
+    "total_price": 1632.0,
+    "status": "active",
+    "cancellation_fee": 0.0
   }
 ]

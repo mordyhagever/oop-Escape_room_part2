@@ -11,6 +11,12 @@ class Validations:
             return False
         return True
 
+    def is_int(self, number):
+        try:
+            int(number)
+            return True
+        except ValueError:
+            return False
 
     def next_booking_id(self):
         data = DataManager()
@@ -84,6 +90,9 @@ class Validations:
         return True
 
     def check_players(self, number, room_id, rooms):
+        if not self.is_int(number):
+            return False
+        number = int(number)
         for room in rooms:
             if room.room_id == room_id:
                 if number > room.max_players or number < room.min_players:
@@ -97,6 +106,22 @@ class Validations:
             if room["room_id"] == room_id:
                 return room
         return None
+
+    def main_choose_checker(self, number):
+        if not self.is_int(number):
+            return False
+        number = int(number)
+        if number < 1 or number > 3:
+            return False
+        return True
+
+    def reports_choose_checker(self, number):
+        if not self.is_int(number):
+            return False
+        number = int(number)
+        if number < 1 or number > 7:
+            return False
+        return True
 
 
 

@@ -1,6 +1,7 @@
 import datetime
 
 from classes import booking
+from classes.validations import Validations
 
 
 class PriceManager:
@@ -8,6 +9,9 @@ class PriceManager:
         weekday = booking_date.weekday()
         final_price = room["price_per_player"] * players
         discount = 0
+        valid = Validations()
+        # if not valid.is_int(players):
+        #     return "Players has to be int"
         if 4 < players <= 6:
             discount = 10
         elif players > 6:
